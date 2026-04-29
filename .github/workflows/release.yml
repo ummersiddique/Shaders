@@ -25,21 +25,15 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Extract Version Name
-        id: get_version
-        run: |
-          VERSION=$(grep "versionName =" app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
-          echo "VERSION_NAME=v$VERSION" >> $GITHUB_OUTPUT
-
       - name: Build Release APK
         run: ./gradlew :app:assembleRelease
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # Tag name must be unique per release
-          tag_name: "${{ steps.get_version.outputs.VERSION_NAME }}-${{ github.run_number }}"
-          name: "${{ steps.get_version.outputs.VERSION_NAME }}"
+          # This follows the 1.0.x pattern (GitHub run number starts at 1)
+          tag_name: "v1.0.${{ github.run_number }}"
+          name: "Release 1.0.${{ github.run_number }}"
           files: |
             app/build/outputs/apk/release/*.apk
           draft: false

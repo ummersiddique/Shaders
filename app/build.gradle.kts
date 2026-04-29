@@ -15,8 +15,10 @@ android {
         applicationId = "com.demo.shaders"
         minSdk = 33
         targetSdk = 36
-        versionCode = System.getenv("GITHUB_RUN_NUMBER")?.toInt() ?: 1
-        versionName = "1.0.0"
+
+        val buildNumber = System.getenv("GITHUB_RUN_NUMBER")?.toInt() ?: 0
+        versionCode = buildNumber + 1
+        versionName = "1.0.$buildNumber"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
