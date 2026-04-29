@@ -25,6 +25,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Shaders"
+rootProject.name = "ShadersProject"
 include(":app")
 include(":shaders")
