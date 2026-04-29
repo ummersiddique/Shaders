@@ -17,10 +17,20 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.tooling.preview.Preview
 
-private val shader = RuntimeShader(Shaders.SNOW_FALLING_SHADER_SRC)
-
 @Composable
-fun ShaderComponent(modifier: Modifier = Modifier) {
+fun ShaderComponent(
+    shaderType: ShaderType,
+    modifier: Modifier = Modifier
+) {
+    val shader = remember(shaderType) {
+        val src = when (shaderType) {
+            ShaderType.ZOOMING -> Shaders.ZOOMING_SHADER_SRC
+            ShaderType.DISCO -> Shaders.DISCO_SHADER_SRC
+            ShaderType.SNOW -> Shaders.SNOW_FALLING_SHADER_SRC
+        }
+        RuntimeShader(src)
+    }
+
     val timeMs = remember { mutableFloatStateOf(0f) }
 
     LaunchedEffect(Unit) {
@@ -53,5 +63,5 @@ fun ShaderComponent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun ShaderComponentPreview() {
-    ShaderComponent()
+    ShaderComponent(shaderType = ShaderType.DISCO)
 }

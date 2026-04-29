@@ -1,8 +1,12 @@
 package com.shaders
 
+enum class ShaderType {
+    ZOOMING, DISCO, SNOW
+}
+
 object Shaders {
 
-    private const val ZOOMING_SHADER_SRC = """
+    const val ZOOMING_SHADER_SRC = """
         uniform float2 size;
         uniform float time;
         uniform shader composable;
